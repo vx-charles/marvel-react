@@ -1,0 +1,30 @@
+.selected-heroes {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.selected-heroes .circle-img {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #707070;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.selected-heroes .circle-img img {
+  width: 50px;
+  height: 50px;
+}
+
+.selected-heroes .items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 110px;
+  text-align: center;
+  line-height: 17px;
+}

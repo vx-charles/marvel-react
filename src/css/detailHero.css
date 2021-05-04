@@ -1,0 +1,118 @@
+.detail-hero {
+  width: 50%;
+  transition: all .4s ease;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background: #E5E5E5;
+  z-index: 1;
+}
+
+.info-hero {
+  padding: 80px;
+}
+
+.detail-hero .title {
+  display: flex;
+}
+
+.info-hero__left {
+  padding: 15px 0px 30px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.info-hero__left .adicionar, .info-hero__left .excluir {
+  background: #fff;
+  font-weight: bold;
+  color: #555;
+  border-radius: 10px;
+  padding: 6px 20px;
+  font-size: 20px;
+  text-align: left;
+  position: relative;
+  border: 0;
+  outline: none;
+  transition: all .2s ease;
+  width: 185px;
+}
+
+.info-hero__left .adicionar::after, .info-hero__left .excluir::after {
+  content: "";
+  background: rgb(0,188,252);
+  background: linear-gradient(19deg, rgba(0,188,252,1) 0%, rgba(86,70,194,1) 30%, rgba(66,238,209,1) 70%, rgba(230,32,2,1) 100%);
+  position: absolute;
+  right: -2px;
+  top: -2px;
+  width: 101.7%;
+  height: 110%;
+  z-index: -1;
+  border-radius: 11px;
+}
+
+.info-hero__left .adicionar:hover, .info-hero__left .excluir:hover {
+  box-shadow: inset 0px 0px 8px -1px #333;
+}
+
+.info-hero__left h2 {
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 50px;
+  color: #000;
+}
+
+.detail-hero .title img {
+  border-radius: 30px;
+}
+
+.detail-hero .title button img {
+  height: 25px;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  padding: 0 0px 0 10px;
+  margin-left: 6px;
+  transform: translate(0%, -50%);
+  border-left: 2px solid #EAEAEA;
+  border-radius: 0;
+}
+
+.detail-hero .title .excluir img {
+  top: 40%;
+  transform: translate(0%, -50%) rotate(45deg);
+  border-left: none;
+  border-radius: 0;
+}
+
+.detail-hero .description {
+  font-size: 16px;
+  margin-top: 40px;
+}
+
+.detail-hero .description h2 {
+  font-size: 18px;
+  color: #000;
+  font-weight: bold;
+  margin: 25px 0 10px;
+}
+
+.detail-hero .description ul {
+  list-style: none;
+}
+
+.list-heroes {
+  width: 100%;
+  transition: all .4s ease;
+}
+
+.activeDetail {
+  left: 50%;
+}
+
+.activeListHeroWidth {
+  overflow: scroll;
+  height: 100vh;
+  width: 50%;
+}
