@@ -29,7 +29,7 @@ export function Heroes(props) {
   const getMoreHeroes = () => {    
     setTimeout(async () => {
 
-      const result = await axios.get('http://gateway.marvel.com/v1/public/characters', {
+      const result = await axios.get('https://gateway.marvel.com/v1/public/characters', {
         params: {
           ts: 6,
           apikey: "60a102569ba4ccc05c57af19ebeaf636",
