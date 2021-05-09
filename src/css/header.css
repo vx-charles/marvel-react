@@ -1,12 +1,13 @@
 header .logo {
-  width: 250px;
-  height: 100px;
   z-index: 1;
   position: relative;
+  width: 25%;
+  display: flex;
 }
 
-header .row .equipe {
+header .equipe {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
+  width: 75%;
 }

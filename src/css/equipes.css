@@ -13,6 +13,8 @@
   border: 1px solid #707070;
   border-radius: 50%;
   overflow: hidden;
+  cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .selected-heroes .circle-img img {
@@ -27,4 +29,25 @@
   width: 110px;
   text-align: center;
   line-height: 17px;
+  position: relative;
+}
+
+.equipe .close-equipe-list {
+  background: #ff0000;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 27px;
+  top: -14px;
+  cursor: pointer;
+}
+
+.equipe .close-equipe-list img {
+  width: 15px;
+  height: 15px;
+  filter: invert(1);
 }

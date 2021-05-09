@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+html, body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
 :root {
   /* Colors: */
   --unnamed-color-000000: #000000;
@@ -11,6 +16,18 @@
   --unnamed-color-e5e5e5: #E5E5E5;
   --bg: #F6F6F6;
   --branco: #FFFFFF;
+}
+
+.container {
+  max-width: 1340px;
+  margin: auto;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.d-none {
+  display: none;
 }
 
 @media (max-width: 1080px) {
@@ -35,6 +52,8 @@ header {
   background: var(--branco);
   padding: 30px;
   height: 160px;
+  display: flex;
+  position: relative;
 }
 
 input {
@@ -52,11 +71,23 @@ main {
 
 .close-equipe {
   display: none;
+  cursor: pointer;
+}
+.close-equipe img {
+  margin-right: 10px;
 }
 
-@media (min-width: 1200px) {
-  .container, .container-lg, .container-md, .container-sm, .container-xl {
-    max-width: 1340px;
+.close-equipe:hover {
+  opacity: .5;
+}
+
+.ver-lista.desktop {
+  display: flex;
+}
+
+@media (max-width: 1200px) {
+  .list-heroes .card {
+    width: 33.3%;
   }
 }
 
@@ -77,8 +108,13 @@ main {
   }
 
   .detail-hero .title {
-      flex-direction: column;
-      align-items: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+  }
+
+  .info-hero__left .adicionar, .info-hero__left .excluir {
+    margin: auto;
   }
 
   .info-hero__left {
@@ -90,23 +126,18 @@ main {
     position: absolute;
     right: 20px;
   }
-
 }
 
-@media (max-width: 768px) {
-  .form-search {
-    width: 100%;
-  }
-
-  .form-container::after {
-    width: 100.7%;
+@media (max-width: 992px) {
+  .list-heroes .card {
+    width: 50%;
   }
 
   .selected-heroes {
     width: 108%;
     background: #fff;
     position: absolute;
-    top: 34px;
+    top: calc(100% + 34px);
     left: 100%;
     padding: 15px;
     z-index: 1;
@@ -121,11 +152,61 @@ main {
 
   .close-equipe {
     position: absolute;
-    right: 30px;
-    top: -50px;
-    display: block;
+    right: 20px;
+    top: -15px;
+    display: flex;
+    align-items: center;
   }
 
+  .ver-lista {
+    position: absolute;
+    margin-right: 30px;
+    display: flex;
+    background-image: linear-gradient(white, white),
+                      radial-gradient(circle at left bottom,  rgba(0,188,252,1), #5548C4, rgba(66,238,209,1), rgba(230,32,2,1));
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    border: solid 1.5px transparent;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+
+  .ver-lista span {
+    margin: 5px 10px;
+    font-weight: 600;
+  }
+
+  .equipe {
+    position: absolute;
+    bottom: 28px;
+    right: 0;
+    width: 100% !important;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .form-search {
+    width: 100%;
+  }
+
+  .form-container::after {
+    width: 100.7%;
+  }
+
+  .form-container {
+    flex-direction: column;
+    margin-bottom: 90px;
+  }
+
+  .list-heroes .limpar {
+    margin: 0;
+    text-decoration: underline;
+    position: absolute;
+    top: 65px;
+    right: 50%;
+    transform: translate(50%, 50%);
+  }
 }
 
 @media (max-width: 586px) {
@@ -138,11 +219,32 @@ main {
   }
 
   .logo img {
-    width: 170px;
+    width: 160px;
   }
 
   .list-heroes {
     padding: 60px 10px;
+  }
+
+  .list-heroes .card {
+    width: 100%;
+  }
+
+  .list-heroes.activeListHeroWidth .card, .list-heroes.activeListHeroWidth {
+    width: 100%;
+  }
+
+  .activeListHeroWidth {
+    overflow: scroll;
+    height: 100vh;
+    width: 50%;
+}
+
+  header {
+    padding: 15px;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 94px;
   }
 }
 

@@ -6,10 +6,27 @@
   left: 100%;
   background: #E5E5E5;
   z-index: 1;
+  height: 100%;
 }
 
 .info-hero {
   padding: 80px;
+  background: #E5E5E5;
+}
+
+.info-hero .close {
+  cursor: pointer;
+  float: right;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
+}
+
+.close:hover {
+  opacity: 1;
 }
 
 .detail-hero .title {
@@ -22,6 +39,7 @@
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
+  z-index: 1;
 }
 
 .info-hero__left .adicionar, .info-hero__left .excluir {
@@ -96,6 +114,7 @@
   color: #000;
   font-weight: bold;
   margin: 25px 0 10px;
+  text-transform: uppercase;
 }
 
 .detail-hero .description ul {
@@ -115,4 +134,16 @@
   overflow: scroll;
   height: 100vh;
   width: 50%;
+}
+
+.aviso.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  position: relative;
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  border: 1px solid #721c24;
+  border-radius: 12px;
 }
