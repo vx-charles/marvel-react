@@ -1,50 +1,67 @@
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectedEquipe, excludeEquipe } from '../store/actions/characterActions'
+import styled from 'styled-components'
+
+import { useContext } from 'react'
+import ContextHero from '../context/contextHero'
 
 import '../css/detailHero.css'
 import close from '../images/cancel.svg'
 import plus from '../images/add.svg'
 
-function closeDetail() {  
-  document.getElementsByClassName("list-heroes")[0].classList.remove('activeListHeroWidth')
-  document.getElementsByClassName("detail-hero")[0].classList.remove('activeDetail')
-  
-  var y = document.getElementsByClassName("col-lg-3");
-  var i;
-  for (i = 0; i < y.length; i++) {
-    y[i].classList.remove('col-lg-6');
-  }
-}
 
-const DetailHero = props => {  
+const TitleDetail = styled.div`
+  .adicionar {
+    display: ${props => props.limit < 5 ? "block" : "none"};      
+  }
+  .aviso {
+    display: ${props => props.limit >= 5 ? "block" : "none"};
+  }
+`
+
+const DetailHero = props => {
+
+  const stateProps = useSelector(state => ({
+    selectHeroDetail: state.characters.selectHeroDetail, 
+    equipe: state.characters.equipe, 
+    limitEquip: state.characters.limitEquip
+  }))
+  const dispatch = useDispatch({ selectedEquipe, excludeEquipe })
+
+  const { closeDrawer, setCloseDrawer } = useContext(ContextHero)
+
+  const closeDetail = () => {
+    setCloseDrawer(false)
+  }
   
   return (
-    <div className="detail-hero detail-hero-mobile">
-      
+    <div className={closeDrawer ? "detail-hero detail-hero-mobile activeDetail" : " detail-hero detail-hero-mobile"}>
       {
-        props.selectHeroDetail.map(hero => (
+        stateProps.selectHeroDetail.map(hero => (
           <div className="info-hero" key={hero.name}>
-            <div className="close" onClick={closeDetail}>
+            <div className="close" onClick={() => closeDetail()}>
               <img src={close} alt="Fechar" width="30" />
             </div>
-            <div className="title">
+            <TitleDetail limit={stateProps.limitEquip} className="title">
               <figure>
                 <img src={hero.thumbnail.path + "/standard_fantastic." + hero.thumbnail.extension} alt={hero.name}/>
               </figure>
               <div className="info-hero__left">
                 <h2>{hero.name}</h2>
-                <button className="adicionar" type="button" onClick={ () => props.selectedEquipe([...props.equipe, { id: hero.id, name: hero.name, img: hero.thumbnail.path + "/standard_fantastic." + hero.thumbnail.extension }], ) }>
+                <button className={stateProps.selectHeroDetail[0]?.add ? "d-none" : "adicionar"} type="button" onClick={ () => dispatch(selectedEquipe(stateProps.equipe.concat(stateProps.selectHeroDetail)))  }>
                   Adicionar
                   <img src={plus} alt="plus" />
                 </button>
-                <button className="excluir d-none" type="button" onClick={ () => props.excludeEquipe([...props.equipe]) }>
+                <button className={stateProps.selectHeroDetail[0]?.add ? "excluir" : "d-none"} type="button" onClick={ () => dispatch(excludeEquipe(stateProps.equipe, hero.id )) }>
                   Excluir
                   <img src={plus} alt="excluir" />
                 </button>
+                <div className="aviso alert-danger">
+                  Limite máximo de 5 heróis adicionados. Remova uma da lista caso queira trocar.
+                </div>
               </div>
-            </div>            
+            </TitleDetail>            
 
             <div className="description">
               <div>
@@ -63,11 +80,13 @@ const DetailHero = props => {
                 <h2>Últimas HQs</h2>
                 <ul>
                   {
-                    hero.series.items.map(series => (
+                    hero.series.items !== "undefined" ? hero.series.items.map(series => (
                       <li key={series.name}>{series.name}</li>
                     ))
+                    : ""
                   }
                   </ul>
+                  {stateProps.selectHeroDetail[0].series.returned === 0 ? "No HQs." : ""}
               </div>
             </div>
             
@@ -78,6 +97,4 @@ const DetailHero = props => {
   )
 }
 
-const mapStateToProps = state => ({ selectHeroDetail: state.characters.selectHeroDetail, equipe: state.characters.equipe })
-const mapDispatchToProps = dispatch => bindActionCreators({ selectedEquipe, excludeEquipe }, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(DetailHero)
+export default DetailHero
