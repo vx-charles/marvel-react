@@ -1,19 +1,18 @@
 {
   "files": {
-    "main.css": "/marvel-react/static/css/main.40a69777.chunk.css",
-    "main.js": "/marvel-react/static/js/main.5abcb511.chunk.js",
-    "main.js.map": "/marvel-react/static/js/main.5abcb511.chunk.js.map",
+    "main.css": "/marvel-react/static/css/main.9cb1c84d.chunk.css",
+    "main.js": "/marvel-react/static/js/main.abcada24.chunk.js",
+    "main.js.map": "/marvel-react/static/js/main.abcada24.chunk.js.map",
     "runtime-main.js": "/marvel-react/static/js/runtime-main.f899b3b4.js",
     "runtime-main.js.map": "/marvel-react/static/js/runtime-main.f899b3b4.js.map",
-    "static/css/2.4c97ca4f.chunk.css": "/marvel-react/static/css/2.4c97ca4f.chunk.css",
-    "static/js/2.2c28bc52.chunk.js": "/marvel-react/static/js/2.2c28bc52.chunk.js",
-    "static/js/2.2c28bc52.chunk.js.map": "/marvel-react/static/js/2.2c28bc52.chunk.js.map",
+    "static/js/2.3e52ec6f.chunk.js": "/marvel-react/static/js/2.3e52ec6f.chunk.js",
+    "static/js/2.3e52ec6f.chunk.js.map": "/marvel-react/static/js/2.3e52ec6f.chunk.js.map",
     "index.html": "/marvel-react/index.html",
-    "static/css/2.4c97ca4f.chunk.css.map": "/marvel-react/static/css/2.4c97ca4f.chunk.css.map",
-    "static/css/main.40a69777.chunk.css.map": "/marvel-react/static/css/main.40a69777.chunk.css.map",
-    "static/js/2.2c28bc52.chunk.js.LICENSE.txt": "/marvel-react/static/js/2.2c28bc52.chunk.js.LICENSE.txt",
+    "static/css/main.9cb1c84d.chunk.css.map": "/marvel-react/static/css/main.9cb1c84d.chunk.css.map",
+    "static/js/2.3e52ec6f.chunk.js.LICENSE.txt": "/marvel-react/static/js/2.3e52ec6f.chunk.js.LICENSE.txt",
     "static/media/add.5f914d0e.svg": "/marvel-react/static/media/add.5f914d0e.svg",
     "static/media/cancel.07d98d42.svg": "/marvel-react/static/media/cancel.07d98d42.svg",
+    "static/media/interrogation.97213628.svg": "/marvel-react/static/media/interrogation.97213628.svg",
     "static/media/loading.10104c11.svg": "/marvel-react/static/media/loading.10104c11.svg",
     "static/media/logo.e90f6f7e.png": "/marvel-react/static/media/logo.e90f6f7e.png",
     "static/media/search.a1e29181.svg": "/marvel-react/static/media/search.a1e29181.svg",
@@ -21,9 +20,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.f899b3b4.js",
-    "static/css/2.4c97ca4f.chunk.css",
-    "static/js/2.2c28bc52.chunk.js",
-    "static/css/main.40a69777.chunk.css",
-    "static/js/main.5abcb511.chunk.js"
+    "static/js/2.3e52ec6f.chunk.js",
+    "static/css/main.9cb1c84d.chunk.css",
+    "static/js/main.abcada24.chunk.js"
   ]
 }
