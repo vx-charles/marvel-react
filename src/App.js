@@ -1,18 +1,25 @@
-import { Header } from './components/Header'
+import Header from './components/Header'
 import Heroes from './components/Heroes'
 import DetailHero from './components/DetailHero'
+import ContextHero from './context/contextHero'
 
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './css/global.css'
+import { useState } from 'react'
 
 function App() {
+
+  const [closeDrawer, setCloseDrawer] = useState(false)
+  const objActiveDrawer = { closeDrawer, setCloseDrawer }
+
   return (
     <>
-      <Header />
-      <main>
-        <Heroes />
-        <DetailHero />
-      </main>
+      <ContextHero.Provider value={objActiveDrawer}>
+        <Header />
+        <main>
+          <Heroes />
+          <DetailHero />
+        </main>
+      </ContextHero.Provider>
     </>
   )
 }
