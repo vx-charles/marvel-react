@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { listHeroes, selectHero, search } from '../store/actions/characterActions'
-import { bindActionCreators } from 'redux'
-// import InfiniteScroll from 'react-infinite-scroll-component'
 import InfiniteScroll from 'react-infinite-scroller'
 import axios from 'axios'
 
@@ -10,23 +8,43 @@ import '../css/listHeroes.css'
 import eye from '../images/visibility.svg'
 import loading from '../images/loading.svg'
 import searchIcon from '../images/search.svg'
+import interrogationIcon from '../images/interrogation.svg'
 
-export function Heroes(props) {
+import { useContext } from 'react'
+import ContextHero from '../context/contextHero'
 
-  const initialRender = useRef(true) // obtém a referência na DOM para armazenar dados
-  const [list, setList] = useState(props.load === false ? props.list.results : [])
-  
-  const [offset, setOffset] = useState(0)
+
+function Heroes(props) {
+
+  const stateProps = useSelector(state => (
+    { 
+      list: state.characters.list, 
+      load: state.characters.load, 
+      selectHeroDetail: state.characters.selectHeroDetail, 
+      total: state.characters.total, 
+      searchHero: state.characters.searchHero 
+    } 
+  ))
+
+  const dispatch = useDispatch({ listHeroes, selectHero, search })
+
+  const { closeDrawer, setCloseDrawer } = useContext(ContextHero)
+
+  const initialRender = useRef(true) // obtém a referência na DOM para armazenar dados.
+  const [list, setList] = useState(stateProps.load === false ? stateProps.list.results : [])
+  const [valor, setValor] = useState('') // usado para pegar o valor na pesquisa.
+  const [offset, setOffset] = useState(0) // faz o offset pegando de 20 em 20 a cada requisição.
+  const [isVisibleClear, setIsVisibleClear] = useState(false)
   const limit = 20
 
   useEffect(() => {
     if (initialRender.current) {
-      props.listHeroes()
+      dispatch(listHeroes())
       initialRender.current = false // a próxima vez que for chamada, será false e para a execução da função.
     }
   })
   
-  const getMoreHeroes = () => {    
+  const getMoreHeroes = () => {
     setTimeout(async () => {
 
       const result = await axios.get('https://gateway.marvel.com/v1/public/characters', {
@@ -46,92 +64,103 @@ export function Heroes(props) {
         setList([...list, ...res])
         setOffset(offset + 20)
       }      
-    }, 1500);
-
+    }, 1000);
   }  
 
   function keyHandler(e) {
     if (e.key === 'Enter') {
-      props.search(valor)
+      dispatch(search(valor))
+      setIsVisibleClear(true)
     }
   }
 
-  const [valor, setValor] = useState('')
+  function clearInput() {
+    setValor("")
+    dispatch(search(""))
+    setIsVisibleClear(false)
+  }
   
+  function searchInput(valor) {
+    setIsVisibleClear(true)
+    dispatch(search(valor))
+  }
+
+  function detailChar(arr, id, name) {
+    setCloseDrawer(true)
+    dispatch(selectHero(arr, id, name))
+  }
+
   return (
-    <div className="list-heroes">
+    <div className={closeDrawer ? "list-heroes activeListHeroWidth" : "list-heroes"}>
       <div className="container">
 
         <div className="form-container">
           <input className="form-search" type="text" placeholder="Busca" value={valor} onKeyUp={keyHandler} onChange={(e) => setValor(e.target.value)} />
-          <button type="button" onClick={() => props.search(valor)}><img src={searchIcon} /></button>
+          <button type="button" className="search-btn" onClick={() => searchInput(valor) }>
+            <img src={searchIcon} alt="Search icon" />
+          </button>
+          <button type="button" className={isVisibleClear ? "limpar" : "limpar d-none"} onClick={() => clearInput()}>Limpar pesquisa</button>
         </div>        
-
-        <div className="row">
-          <div className="card-search">
-            <div className="no-hero d-none">Herói não existe. Tente outro Herói da HQ.</div>
-            {
-              props.searchHero !== 'undefined' ? props.searchHero.map(char => (
-                <div className="col-12 col-md-6 col-lg-3" key={char.id}>
-                  <div className="itens">
-                    <img src={char.thumbnail.path + '/standard_xlarge' + '.' + char.thumbnail.extension} alt={char.name} />
-                    <div className="info">
-                      <span>{char.name}</span>
-                      <button className="ver-mais" onClick={() => props.selectHero(char.name)}>
-                        <img src={eye} alt="eye" />
-                      </button>
-                    </div>
+        
+        <div className="card-search">            
+          { // gera a lista somente do herói pesquisado
+            stateProps.searchHero[0]?.id !== "x-200" ? stateProps.searchHero.map(char => (
+              <div className="search-list card" key={char.id}>
+                <div className="itens">
+                  <img src={char.thumbnail?.path + '/standard_xlarge.' + char.thumbnail?.extension} alt={char.name} />
+                  <div className="info">
+                    <span>{char.name}</span>
+                    <button className="ver-mais" onClick={() => detailChar(stateProps.searchHero, char.id, char.name)}>
+                      <img src={eye} alt="eye" />
+                    </button>
                   </div>
                 </div>
-              ))
-              : ""
-            }
-          </div>
-
-          <InfiniteScroll
-            pageStart={0}
-            loadMore={getMoreHeroes}
-            // loadMore={fetchMoreData}
-            hasMore={Math.ceil((props.total / limit)) > Math.ceil((offset / limit) + 1)}            
-            loader={<img className="loading-svg" src={loading} alt="Loading..." key={0} />}
-            className="cards"
-          >
-            {
-              props.load === false ?
-                  list.map(char => (
-                    <div className="col-12 col-md-6 col-lg-3" key={char.id}>
-                      <div className="itens">
-                        <img src={char.thumbnail.path + '/standard_xlarge' + '.' + char.thumbnail.extension} alt={char.name} />
-                        <div className="info">
-                          <span>{char.name}</span>
-                          <button className="ver-mais" onClick={() => props.selectHero(char.name)}>
-                            <img src={eye} alt="eye" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-              : ''
-              
-            }
-          </InfiniteScroll>
+              </div>
+            ))
+            :
+            stateProps.searchHero.map(char => (
+              <div className="not-found card" key={char.id}>
+                <div className="itens">
+                <img src={interrogationIcon} alt="interrogação icon" />
+                  <div className="info">
+                    <span>{char.name}</span>
+                  </div>
+                </div>
+              </div>
+            ))
+          }          
         </div>
 
-      </div>
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={getMoreHeroes}
+          hasMore={Math.ceil((stateProps.total / limit)) > Math.ceil((offset / limit) + 1)} // verifica se há mais heróis, senão ele para a execução do scroll.
+          loader={<img className="loading-svg" src={loading} alt="Loading..." key={0} />}
+          className={stateProps.searchHero[0]?.search ? "d-none" : "cards"}
+        >
+          {
+            stateProps.load === false ?
+                list.map(char => (
+                  <div className="card" key={char.id}>
+                    <div className="itens">
+                      <img src={char.thumbnail.path + '/standard_xlarge.' + char.thumbnail.extension} alt={char.name} />
+                      <div className="info">
+                        <span>{char.name}</span>
+                        <button className="ver-mais" onClick={() => detailChar(list, char.id, char.name)}>
+                          <img src={eye} alt="eye" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))
+            : ''              
+          }
+        </InfiniteScroll>      
 
+      </div>
     </div>
   )
 }
 
-const mapStateToProps = state => ( // pega o estado atual armazenado no objeto lá no countryReducer.js
-  {
-    list: state.characters.list,
-    load: state.characters.load,
-    selectHeroDetail: state.characters.selectHeroDetail,
-    activeSearch: state.characters.activeSearch,
-    total: state.characters.total,
-    searchHero: state.characters.searchHero
-  }
-)
-const mapDispatchToProps = dispatch => bindActionCreators({ listHeroes, selectHero, search }, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(Heroes)
+export default Heroes
+
