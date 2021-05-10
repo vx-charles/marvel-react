@@ -19,8 +19,11 @@ Site do projeto: https://vx-charles.github.io/marvel-react/
 
 ```
 # Instalar dependencias do package.json
-$ npm install 
+$ npm install
 
 # Executar projeto
 $ npm run start
+
+# Cria a build do projeto e faz o deploy para o Github com o link do site do projeto
+$ npm run deploy
 ```
