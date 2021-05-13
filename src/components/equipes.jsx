@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import ContextHero from '../context/contextHero'
+
 import { useSelector, useDispatch } from 'react-redux'
 import { excludeEquipe, selectHero } from '../store/actions/characterActions'
 
 import '../css/equipes.css'
 import closeSVG from '../images/cancel.svg'
 
-import { useContext } from 'react'
-import ContextHero from '../context/contextHero'
 
 const Equipes = props => {
 
