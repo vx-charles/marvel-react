@@ -79,14 +79,14 @@ function Heroes() {
           pageStart={0}
           loadMore={getMoreHeroes}
           hasMore={Math.ceil((stateProps.total / limit)) > Math.ceil((offset / limit) + 1)} // verifica se há mais heróis, senão ele para a execução do scroll.
-          loader={<img className="loading-svg" src={loading} alt="Loading..." key={0} />}
+          loader={<div className="loading" key={0}><img className="loading-svg" src={loading} alt="Loading..." /></div>}
           className={stateProps.searchHero[0]?.search ? "d-none" : "cards"}
         >
           {
             stateProps.load === false ? list.map(char => (
               <ListInfiniteHeroes arrObjChar={char} listStateProps={list} key={char.id} />
             ))
-            : <img className="loading-svg" src={loading} alt="Loading..." />
+            : <div className="loading"><img className="loading-svg" src={loading} alt="Loading..." /></div>
           }
         </InfiniteScroll>      
 
