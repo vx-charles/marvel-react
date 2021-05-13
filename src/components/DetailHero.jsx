@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import ContextHero from '../context/contextHero'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { selectedEquipe, excludeEquipe } from '../store/actions/characterActions'
 import styled from 'styled-components'
-
-import { useContext } from 'react'
-import ContextHero from '../context/contextHero'
 
 import '../css/detailHero.css'
 import close from '../images/cancel.svg'
