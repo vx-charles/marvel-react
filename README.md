@@ -1,4 +1,11 @@
 # Projeto teste em React JS usando API da Marvel 
+
+<div align="center">
+<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+<img src="https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white" />
+</div>
+<br />
+
 Projeto criado usando create-react-app que se alimenta da API da Marvel que mostra a lista e os dados dos Heróis da HQ e também adicionar 5 heróis favoritos da HQ. Desenvolvido usando React JS e Redux (controle de estados) com scroll infinito.
 
 Site do projeto: https://vx-charles.github.io/marvel-react/
