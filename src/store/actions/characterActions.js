@@ -25,8 +25,8 @@ export const selectHero = (arrHero, id, name) => {
       const request = axiosBaseURL.get('characters', {
         params: {
           ts: 6,
-          apikey: '60a102569ba4ccc05c57af19ebeaf636',
-          hash: 'c96130248d43dbb1b0583dde5de35803',
+          apikey: 'b851322ff45094f53be8e488f1c3db76',
+          hash: '3899499c303701d1eed4542ec134f4da',
           name: name
         }
       })
@@ -44,8 +44,8 @@ export const search = name => {
       const request = axiosBaseURL.get('characters', {
         params: {
           ts: 6,
-          apikey: '60a102569ba4ccc05c57af19ebeaf636',
-          hash: 'c96130248d43dbb1b0583dde5de35803',
+          apikey: 'b851322ff45094f53be8e488f1c3db76',
+          hash: '3899499c303701d1eed4542ec134f4da',
           name: name
         }
       })
